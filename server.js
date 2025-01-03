@@ -1,9 +1,6 @@
 import express from "express";
 import axios from "axios";
 import cors from "cors";
-import dotenv from "dotenv";
-
-dotenv.config(); // Load environment variables
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,6 +8,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Define the correct endpoint
 app.post("/api/check-imei", async (req, res) => {
   try {
     const response = await axios.post(
@@ -40,6 +38,11 @@ app.post("/api/check-imei", async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   }
+});
+
+// Default route
+app.get("/", (req, res) => {
+  res.send("IMEI Checker Backend is running!");
 });
 
 app.listen(PORT, () => {
